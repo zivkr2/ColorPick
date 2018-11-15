@@ -32,8 +32,14 @@ document.body.addEventListener("click", () => {
   const { clipboard } = require("electron");
   clipboard.writeText("#" + hex);
 
+  document.querySelector(".circle").classList.add("close");
+
   // close app
   const remote = require("electron").remote;
   let w = remote.getCurrentWindow();
-  w.close();
+
+  //close after timeout to allow animation to end
+  setTimeout(() => {
+    w.close();
+  }, 150);
 });

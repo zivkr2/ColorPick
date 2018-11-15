@@ -12,7 +12,7 @@ function createWindow () {
     const area = display.bounds;
 
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: area.width, height: area.height , frame:false , transparent: true,alwaysOnTop: true})
+  mainWindow = new BrowserWindow({width: area.width, height: area.height , frame:false , transparent: true,alwaysOnTop: true,fullscreen:true})
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')

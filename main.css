@@ -4,17 +4,18 @@
   left: 10px;
   height: 0px;
   width: 0px;
+  opacity: 0;
   background-color: black;
   border: 3px solid #c8c8c8;
   border-radius: 50%;
   transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s;
-  animation: grow 0.1s linear forwards ;
+  animation: grow 0.15s linear forwards;
   animation-delay: 0.15s;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.41);
 }
 
 .circle.close {  
-  animation: shrink 0.15s linear forwards ;
+  animation: shrink 0.10s ease forwards ;
 }
 
 @keyframes grow {

@@ -17,8 +17,29 @@ document.body.addEventListener("mousemove", e => {
   var x = e.pageX,
     y = e.pageY;
 
-  document.querySelector(".circle").style["top"] = y + 7 + "px";
-  document.querySelector(".circle").style["left"] = x + 7 + "px";
+   let marginY = 7 ;
+    let marginX = 7 ;
+    
+    circleSize = 70;
+
+    const screen = require('electron').screen;
+    const display = screen.getPrimaryDisplay();
+    const area = display.bounds;
+
+    // Get mid zone
+    let midWidth = area.width / 2;
+    let midHeight = area.height / 2;
+
+    if (x > midWidth){
+      marginX =  (marginX * -1) - circleSize;
+    }
+    
+    if (y > midHeight){
+      marginY = (marginY * -1) - circleSize;
+    }
+
+  document.querySelector(".circle").style["top"] = y + marginY + "px";
+  document.querySelector(".circle").style["left"] = x + marginX + "px";
 });
 
 document.body.addEventListener("click", () => {

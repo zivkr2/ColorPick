@@ -1,2 +1,13 @@
 node_modules
 electron-quick-start-win32-x64
+
+# Package Lock JSON
+package-lock.json
+
+# IDEs
+.idea/*
+.vscode/*
+
+# builds
+build
+dist-win32-x64

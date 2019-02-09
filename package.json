@@ -4,7 +4,8 @@
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "package": "electron-packager . dist --platform=win32 --arch=x64 --overwrite"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -17,10 +18,13 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^3.0.4",
-    "electron-rebuild": "^1.8.2"
+    "electron": "^4.0.4",
+    "electron-rebuild": "^1.8.2",
+    "electron-tray": "^0.1.1",
+    "robotjs": "^0.5.1"
   },
   "dependencies": {
-    "robotjs": "^0.5.1"
+    "bcrypt": "^3.0.3",
+    "electron-packager": "^13.0.1"
   }
 }

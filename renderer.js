@@ -1,66 +1,77 @@
 // This file is required by the index.html file and will
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
-const robot = require("robotjs");
+const robot = require('robotjs');
+const electron = require('electron');
 
-document.body.addEventListener("mousemove", e => {
+// Communicate with main process to toggle main display
+const toggleDisplay = () => {
+  electron.ipcRenderer.send('sync');
+};
+
+document.body.addEventListener('mousemove', e => {
   // Get pixel color under the mouse.
   // Get mouse position.
-  var mouse = robot.getMousePos();
+  const mouse = robot.getMousePos();
 
   // Get pixel color in hex format.
-  var hex = robot.getPixelColor(mouse.x, mouse.y);
+  const hex = robot.getPixelColor(mouse.x, mouse.y);
   // document.querySelector(".color-hex").innerHTML = "#" + hex;
-  document.querySelector(".circle").style["background-color"] = "#" + hex;
+  document.querySelector('.circle').style['background-color'] = '#' + hex;
 
   // move circle to mouse
-  var x = e.pageX,
-    y = e.pageY;
+  const x = e.pageX;
+  const y = e.pageY;
 
-   let marginY = 7 ;
-    let marginX = 7 ;
-    
-    circleSize = 70;
+  let marginY = 7;
+  let marginX = 7;
 
-    const screen = require('electron').screen;
-    const display = screen.getPrimaryDisplay();
-    const area = display.bounds;
+  const circleSize = 70;
 
-    // Get mid zone
-    let midWidth = area.width / 2;
-    let midHeight = area.height / 2;
+  const screen = electron.screen;
+  const displays = screen.getAllDisplays();
+  const primaryDisplay = displays[0];
+  const area = {
+    width: primaryDisplay.bounds.width,
+    height: primaryDisplay.bounds.height,
+  };
 
-    if (x > midWidth){
-      marginX =  (marginX * -1) - circleSize;
-    }
-    
-    if (y > midHeight){
-      marginY = (marginY * -1) - circleSize;
-    }
+  // Support for multi Screens, still waiting for RobotJS to work on multi
+  displays.forEach(display => {
+    // Add X and Y to calculate additional screen deltas
+    area.width += display.bounds.x;
+    area.height += display.bounds.y;
+  });
 
-  document.querySelector(".circle").style["top"] = y + marginY + "px";
-  document.querySelector(".circle").style["left"] = x + marginX + "px";
+  // Get mid zone
+  let midWidth = area.width / 2;
+  let midHeight = area.height / 2;
+
+  if (x > midWidth) {
+    marginX = (marginX * -1) - circleSize;
+  }
+
+  if (y > midHeight) {
+    marginY = (marginY * -1) - circleSize;
+  }
+
+  document.querySelector('.circle').style['top'] = y + marginY + 'px';
+  document.querySelector('.circle').style['left'] = x + marginX + 'px';
 });
 
-document.body.addEventListener("click", () => {
+document.body.addEventListener('click', () => {
   // Get pixel color under the mouse.
   // Get mouse position.
-  var mouse = robot.getMousePos();
+  const mouse = robot.getMousePos();
 
   // Get pixel color in hex format.
-  var hex = robot.getPixelColor(mouse.x, mouse.y);
+  const hex = robot.getPixelColor(mouse.x, mouse.y);
+
   // copy to clipboard
-  const { clipboard } = require("electron");
-  clipboard.writeText("#" + hex);
-
-  document.querySelector(".circle").classList.add("close");
-
-  // close app
-  const remote = require("electron").remote;
-  let w = remote.getCurrentWindow();
+  electron.clipboard.writeText('#' + hex);
 
   //close after timeout to allow animation to end
   setTimeout(() => {
-    w.close();
+    toggleDisplay()
   }, 150);
 });

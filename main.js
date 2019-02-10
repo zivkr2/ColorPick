@@ -21,9 +21,11 @@ ipcMain.on('sync', (event, arg) => {
   toggleWindowDisplay();
 });
 
+
 const toggleWindowDisplay = () => {
   if (hidden) {
     mainWindow.show();
+    mainWindow.webContents.send('toRenderer');
   } else {
     mainWindow.hide();
   }

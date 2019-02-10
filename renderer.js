@@ -9,6 +9,10 @@ const toggleDisplay = () => {
   electron.ipcRenderer.send('sync');
 };
 
+electron.ipcRenderer.on('toRenderer', (event, args) => {
+  document.querySelector('.circle').classList.remove('close');
+});
+
 document.body.addEventListener('mousemove', e => {
   // Get pixel color under the mouse.
   // Get mouse position.
@@ -72,6 +76,6 @@ document.body.addEventListener('click', () => {
 
   //close after timeout to allow animation to end
   setTimeout(() => {
-    toggleDisplay()
+    toggleDisplay();
   }, 150);
 });

@@ -1,19 +1,20 @@
 // This file is required by the index.html file and will
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
-const robot = require('robotjs');
-const electron = require('electron');
+const robot = require("robotjs");
+const electron = require("electron");
 
 // Communicate with main process to toggle main display
 const toggleDisplay = () => {
-  electron.ipcRenderer.send('sync');
+  electron.ipcRenderer.send("sync");
 };
 
-electron.ipcRenderer.on('toRenderer', (event, args) => {
-  document.querySelector('.circle').classList.remove('close');
+electron.ipcRenderer.on("toRenderer", (event, args) => {
+  document.querySelector(".circle").classList.remove("close");
+  document.querySelector(".circle").classList.add("show");
 });
 
-document.body.addEventListener('mousemove', e => {
+document.body.addEventListener("mousemove", e => {
   // Get pixel color under the mouse.
   // Get mouse position.
   const mouse = robot.getMousePos();
@@ -21,7 +22,7 @@ document.body.addEventListener('mousemove', e => {
   // Get pixel color in hex format.
   const hex = robot.getPixelColor(mouse.x, mouse.y);
   // document.querySelector(".color-hex").innerHTML = "#" + hex;
-  document.querySelector('.circle').style['background-color'] = '#' + hex;
+  document.querySelector(".circle").style["background-color"] = "#" + hex;
 
   // move circle to mouse
   const x = e.pageX;
@@ -37,7 +38,7 @@ document.body.addEventListener('mousemove', e => {
   const primaryDisplay = displays[0];
   const area = {
     width: primaryDisplay.bounds.width,
-    height: primaryDisplay.bounds.height,
+    height: primaryDisplay.bounds.height
   };
 
   // Support for multi Screens, still waiting for RobotJS to work on multi
@@ -52,18 +53,18 @@ document.body.addEventListener('mousemove', e => {
   let midHeight = area.height / 2;
 
   if (x > midWidth) {
-    marginX = (marginX * -1) - circleSize;
+    marginX = marginX * -1 - circleSize;
   }
 
   if (y > midHeight) {
-    marginY = (marginY * -1) - circleSize;
+    marginY = marginY * -1 - circleSize;
   }
 
-  document.querySelector('.circle').style['top'] = y + marginY + 'px';
-  document.querySelector('.circle').style['left'] = x + marginX + 'px';
+  document.querySelector(".circle").style["top"] = y + marginY + "px";
+  document.querySelector(".circle").style["left"] = x + marginX + "px";
 });
 
-document.body.addEventListener('click', () => {
+document.body.addEventListener("click", () => {
   // Get pixel color under the mouse.
   // Get mouse position.
   const mouse = robot.getMousePos();
@@ -72,7 +73,11 @@ document.body.addEventListener('click', () => {
   const hex = robot.getPixelColor(mouse.x, mouse.y);
 
   // copy to clipboard
-  electron.clipboard.writeText('#' + hex);
+  electron.clipboard.writeText("#" + hex);
+
+  // add close animation
+  document.querySelector('.circle').classList.remove('show');
+  document.querySelector('.circle').classList.add('close');
 
   //close after timeout to allow animation to end
   setTimeout(() => {

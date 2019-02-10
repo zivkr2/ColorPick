@@ -2,48 +2,48 @@
   position: absolute;
   top: 10px;
   left: 10px;
-  height: 0px;
-  width: 0px;
+  height: 70px;
+  width: 70px;
   opacity: 0;
   background-color: black;
   border: 3px solid #c8c8c8;
   border-radius: 50%;
   transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s;
-  animation: grow 0.15s linear forwards;
   animation-delay: 0.15s;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.41);
+  transform-origin: center;
 }
 
-.circle.close {  
-  animation: shrink 0.10s ease forwards ;
+.circle.close {
+  animation: pop 0.15s linear forwards;
+}
+
+.circle.show {
+  animation: grow 0.15s linear forwards;
 }
 
 @keyframes grow {
-    0% {
-     height: 0px;
-     width: 0px;
-     opacity: 0;
-    }
-    100% {
-        height: 70px;
-        width: 70px;
-        opacity: 1;
-    }
+  0% {
+    transform: scale(0);
+    opacity: 0;
   }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 
-  @keyframes shrink {
-    
-    0% {
-        height: 70px;
-        width: 70px;
-        opacity: 1;
-    }
-    100% {
-      height: 0px;
-      width: 0px;
-      opacity: 0;
-     }
+@keyframes pop {
+  0% {
+    transform: scale(1);
+    opacity: 1;
   }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
 .color-hex {
   background-color: white;
 }
@@ -52,17 +52,15 @@
   width: 100%;
   height: 100vh;
   cursor: crosshair;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
-
-body{
- overflow: hidden; 
- padding: 0px;
-}
-
-
-html{
-  overflow: hidden; 
+body {
+  overflow: hidden;
   padding: 0px;
- }
+}
+
+html {
+  overflow: hidden;
+  padding: 0px;
+}

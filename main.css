@@ -51,7 +51,8 @@
 .screen-cover {
   width: 100%;
   height: 100vh;
-  cursor: crosshair;
+  /* cursor: crosshair; */
+  cursor: none;
   overflow: hidden;
 }
 

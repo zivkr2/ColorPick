@@ -39,10 +39,10 @@
     "electron": "^4.0.4",
     "electron-builder": "^20.38.5",
     "electron-rebuild": "^1.8.2",
-    "electron-tray": "^0.1.1",
-    "robotjs": "^0.5.1"
+    "electron-tray": "^0.1.1"
   },
   "dependencies": {
-    "electron-packager": "^13.0.1"
+    "electron-packager": "^13.0.1",
+    "rgb-hex": "^2.1.0"
   }
 }

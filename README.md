@@ -1,4 +1,4 @@
-# colorPick
+# ColorPick
 Cross platform quick and easy eyedropper tool
 
 # Usage
